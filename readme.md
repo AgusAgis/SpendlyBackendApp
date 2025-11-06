@@ -1,4 +1,4 @@
-# 💸 GastitosBackend: API de Gestión Financiera
+# 💸 SpendlyBackend: API de Gestión Financiera
 
 Este proyecto es una **API RESTful** diseñada para la gestión completa de **Gastos** (CRUD). Está desarrollada en **Node.js** y **Express**, y sigue rigurosamente una arquitectura modular basada en **Cuatro Capas** (Controller, Service, Data, Routes) para garantizar escalabilidad y mantenimiento.
 
