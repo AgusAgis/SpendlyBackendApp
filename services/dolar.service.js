@@ -1,14 +1,14 @@
 // services/dolar.service.js
 const axios = require('axios');
 
-// Caché simple en memoria (puedes hacer esto más sofisticado después)
+// Caché simple en memoria (le pegamos a la api cada 10min es mucho capaz)
 let cache = {
     timestamp: 0,
     data: null
 };
 
-// Cachear por 10 minutos (600000 ms)
-const CACHE_DURATION = 600000; 
+// Cachear por 1 hora
+const CACHE_DURATION = 3600000; 
 
 const getCotizaciones = async () => {
     const now = Date.now();
