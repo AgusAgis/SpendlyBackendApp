@@ -8,6 +8,7 @@ const port = 8080;
 // Importamos las rutas de gastos y categorias
 const gastosRoutes = require('./routes/gastos.routes');
 const categoriasRoutes = require('./routes/categorias.routes');
+const dolarRoutes = require('./routes/dolar.routes.js');
 
 // Middleware
 // Para parsear JSON en el cuerpo de las peticiones (POST, PUT)
@@ -24,7 +25,7 @@ app.use(express.static('public'));
 // Usamos el router de gastos para todas las peticiones que empiecen con '/gastos'
 app.use('/gastos', gastosRoutes);
 app.use('/categorias', categoriasRoutes);
-
+app.use('/dolar', dolarRoutes);
 
 // Inicialización del servidor
 app.listen(port, () => {
@@ -41,5 +42,7 @@ app.listen(port, () => {
     POST /categorias 
     PUT /categorias/:id 
     DELETE /categorias/:id
+
+    GET/dolar
     `);
 });
