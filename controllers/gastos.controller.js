@@ -32,9 +32,10 @@ const getGasto = (req, res) => {
 /**
  * Handler para POST /gastos - Incorpora un nuevo gasto.
  */
-const createGasto = (req, res) => {
+const createGasto = async (req, res) => {
     try {
-        const newGasto = gastosService.addGasto(req.body);
+        // El body ahora espera: { categoria, monto, fecha, moneda, tipoConversion}
+        const newGasto = await gastosService.addGasto(req.body);
         res.status(201).json(newGasto);
     } catch (error) {
         // Captura el error de validación lanzado por el servicio
@@ -45,20 +46,25 @@ const createGasto = (req, res) => {
 /**
  * Handler para PUT /gastos/:id - Actualiza un gasto por su ID.
  */
-const updateGastoController = (req, res) => {
-    const id = parseInt(req.params.id);
+const updateGastoController = async (req, res) => {
+    try{
+        const id = parseInt(req.params.id);
 
-    if (isNaN(id)) {
-        return res.status(400).json({ error: 'ID inválido' });
+        if (isNaN(id)) {
+          return res.status(400).json({ error: 'ID inválido' });
+        }
+
+        const updatedGasto = await gastosService.updateGasto(id, req.body);
+
+        if (updatedGasto) {
+            res.json(updatedGasto);
+        } else {
+            res.status(404).json({ error: 'Gasto no encontrado para actualizar' });
+        }
+    }catch (error) {
+        res.status(400).json({ error: error.message });
     }
-
-    const updatedGasto = gastosService.updateGasto(id, req.body);
-
-    if (updatedGasto) {
-        res.json(updatedGasto);
-    } else {
-        res.status(404).json({ error: 'Gasto no encontrado para actualizar' });
-    }
+    
 };
 
 /**

@@ -1,0 +1,735 @@
+{
+	"info": {
+		"_postman_id": "fe320539-c865-49c4-a08d-5697a65ba723",
+		"name": "TP2-Spendly-back",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7969977"
+	},
+	"item": [
+		{
+			"name": "getDolarInfo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dolar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dolar"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "getDolarInfo",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/dolar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dolar"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "922"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"39a-nU+Xf62ToMLrGQKsyDAcXESo2MI\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Nov 2025 06:34:31 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"moneda\": \"USD\",\n        \"casa\": \"oficial\",\n        \"nombre\": \"Oficial\",\n        \"compra\": 1395,\n        \"venta\": 1445,\n        \"fechaActualizacion\": \"2025-11-07T17:02:00.000Z\"\n    },\n    {\n        \"moneda\": \"USD\",\n        \"casa\": \"blue\",\n        \"nombre\": \"Blue\",\n        \"compra\": 1395,\n        \"venta\": 1415,\n        \"fechaActualizacion\": \"2025-11-08T20:58:00.000Z\"\n    },\n    {\n        \"moneda\": \"USD\",\n        \"casa\": \"bolsa\",\n        \"nombre\": \"Bolsa\",\n        \"compra\": 1449.9,\n        \"venta\": 1458,\n        \"fechaActualizacion\": \"2025-11-08T20:58:00.000Z\"\n    },\n    {\n        \"moneda\": \"USD\",\n        \"casa\": \"contadoconliqui\",\n        \"nombre\": \"Contado con liquidación\",\n        \"compra\": 1471,\n        \"venta\": 1474.6,\n        \"fechaActualizacion\": \"2025-11-08T20:58:00.000Z\"\n    },\n    {\n        \"moneda\": \"USD\",\n        \"casa\": \"mayorista\",\n        \"nombre\": \"Mayorista\",\n        \"compra\": 1406,\n        \"venta\": 1415,\n        \"fechaActualizacion\": \"2025-11-07T15:20:00.000Z\"\n    },\n    {\n        \"moneda\": \"USD\",\n        \"casa\": \"cripto\",\n        \"nombre\": \"Cripto\",\n        \"compra\": 1514,\n        \"venta\": 1520,\n        \"fechaActualizacion\": \"2025-11-08T20:58:00.000Z\"\n    },\n    {\n        \"moneda\": \"USD\",\n        \"casa\": \"tarjeta\",\n        \"nombre\": \"Tarjeta\",\n        \"compra\": 1813.5,\n        \"venta\": 1878.5,\n        \"fechaActualizacion\": \"2025-11-07T17:02:00.000Z\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "getExpense",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/gastos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gastos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getExpenseById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/gastos/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gastos",
+						"3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "getExpense Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/gastos/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gastos",
+								"4"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "130"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"82-NFyQEss3YjqRfPQ2HJmlKirpA80\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Nov 2025 06:34:10 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"categoria\": \"Play\",\n    \"fecha\": \"2025/11/03\",\n    \"montoEnARS\": 84900,\n    \"monto\": 60,\n    \"moneda\": \"USD\",\n    \"tipoConversion\": \"blue\"\n}"
+				}
+			]
+		},
+		{
+			"name": "createExpense",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"categoria\": \"Netflix\",\n    \"fecha\": \"2025/11/09\",\n    \"montoEnARS\": null, // Monto principal (siempre ARS)\n    \"monto\": 3, // Monto que ingresó el usuario\n    \"moneda\": \"USD\", // Moneda que ingresó el usuario\n    \"tipoConversion\": \"tarjeta\" // Tipo de dólar usado (null si fue ARS)\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/gastos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gastos"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "createExpenseUsd",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"categoria\": \"Play\",\n    \"fecha\": \"2025/11/03\",\n    \"montoEnARS\": null, // Monto principal (siempre ARS)\n    \"monto\": 60, // Monto que ingresó el usuario\n    \"moneda\": \"USD\", // Moneda que ingresó el usuario\n    \"tipoConversion\": \"blue\" // Tipo de dólar usado (null si fue ARS)\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/gastos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gastos"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "130"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"82-NFyQEss3YjqRfPQ2HJmlKirpA80\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Nov 2025 06:33:02 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"categoria\": \"Play\",\n    \"fecha\": \"2025/11/03\",\n    \"montoEnARS\": 84900,\n    \"monto\": 60,\n    \"moneda\": \"USD\",\n    \"tipoConversion\": \"blue\"\n}"
+				},
+				{
+					"name": "createExpenseArs",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoria\": \"Didi\",\n    \"fecha\": \"2025/11/09\",\n    \"montoEnARS\": null, // Monto principal (siempre ARS)\n    \"monto\": 9200, // Monto que ingresó el usuario\n    \"moneda\": \"ARS\", // Moneda que ingresó el usuario\n    \"tipoConversion\": null // Tipo de dólar usado (null si fue ARS)\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/gastos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gastos"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "131"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"83-T/Z4SF3ESE37MqMjuDuxBFCC0Z8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Nov 2025 06:37:44 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 5,\n    \"categoria\": \"Play\",\n    \"fecha\": \"2025/11/03\",\n    \"montoEnARS\": 28000,\n    \"monto\": 28000,\n    \"moneda\": \"ARS\",\n    \"tipoConversion\": null\n}"
+				},
+				{
+					"name": "createExpenseUsd",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoria\": \"Netflix\",\n    \"fecha\": \"2025/11/09\",\n    \"montoEnARS\": null, // Monto principal (siempre ARS)\n    \"monto\": 3, // Monto que ingresó el usuario\n    \"moneda\": \"USD\", // Moneda que ingresó el usuario\n    \"tipoConversion\": \"tarjeta\" // Tipo de dólar usado (null si fue ARS)\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/gastos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gastos"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "136"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"88-qBzoUk16IhbEWbLEmDuBkmA+5os\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Nov 2025 06:46:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"categoria\": \"Netflix\",\n    \"fecha\": \"2025/11/09\",\n    \"montoEnARS\": 5635.5,\n    \"monto\": 3,\n    \"moneda\": \"USD\",\n    \"tipoConversion\": \"tarjeta\"\n}"
+				}
+			]
+		},
+		{
+			"name": "convertirUsd",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"monto\" : 15000,\n    \"tipoConversion\" : \"tarjeta\",\n    \"moneda\" : \"USD\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dolar/convertir",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dolar",
+						"convertir"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "conversionOk",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"monto\" : 15000,\n    \"tipo\" : \"tarjeta\",\n    \"moneda\" : \"USD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/dolar/convertir",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dolar",
+								"convertir"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "28"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1c-0kc9XOGawcXRVptJupN/6w/KvnU\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Nov 2025 06:03:38 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"montoConvertido\": 28177500\n}"
+				}
+			]
+		},
+		{
+			"name": "createExpenseArs",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"categoria\": \"Didi\",\n    \"fecha\": \"2025/11/09\",\n    \"montoEnARS\": null, // Monto principal (siempre ARS)\n    \"monto\": 9200, // Monto que ingresó el usuario\n    \"moneda\": \"ARS\", // Moneda que ingresó el usuario\n    \"tipoConversion\": null // Tipo de dólar usado (null si fue ARS)\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/gastos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gastos"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "createExpenseArs",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoria\": \"Didi\",\n    \"fecha\": \"2025/11/09\",\n    \"montoEnARS\": null, // Monto principal (siempre ARS)\n    \"monto\": 9200, // Monto que ingresó el usuario\n    \"moneda\": \"ARS\", // Moneda que ingresó el usuario\n    \"tipoConversion\": null // Tipo de dólar usado (null si fue ARS)\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/gastos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gastos"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "129"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"81-qQBF+2CJr8pYTQEAkKZWyWqF42k\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Nov 2025 06:46:54 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 5,\n    \"categoria\": \"Didi\",\n    \"fecha\": \"2025/11/09\",\n    \"montoEnARS\": 9200,\n    \"monto\": 9200,\n    \"moneda\": \"ARS\",\n    \"tipoConversion\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"categoria\": \"Uber Moto\",\n    \"fecha\": \"2025/11/09\",\n    \"monto\": 7000, // Monto que ingresó el usuario\n    \"moneda\": \"ARS\"// Moneda que ingresó el usuario\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/gastos/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gastos",
+						"3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "update USD",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoria\": \"Didi Moto\",\n    \"fecha\": \"2025/11/09\",\n    \"montoEnARS\": null, // Monto principal (siempre ARS)\n    \"monto\": 7, // Monto que ingresó el usuario\n    \"moneda\": \"USD\", // Moneda que ingresó el usuario\n    \"tipoConversion\": \"tarjeta\" // Tipo de dólar usado (null si fue ARS)\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/gastos/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gastos",
+								"3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "139"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"8b-r+pb2a79khqvqdqrwYRpl117cXQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Nov 2025 06:56:39 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 3,\n    \"categoria\": \"Didi Moto\",\n    \"fecha\": \"2025/11/09\",\n    \"montoEnARS\": 13149.5,\n    \"monto\": 7,\n    \"moneda\": \"USD\",\n    \"tipoConversion\": \"tarjeta\"\n}"
+				},
+				{
+					"name": "update ARS",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoria\": \"Uber Moto\",\n    \"fecha\": \"2025/11/09\",\n    \"monto\": 7000, // Monto que ingresó el usuario\n    \"moneda\": \"ARS\"// Moneda que ingresó el usuario\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/gastos/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gastos",
+								"3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "134"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"86-cr5nU9GJCMhpPQ6wzMcqIJg2t3Q\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Nov 2025 06:57:41 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 3,\n    \"categoria\": \"Uber Moto\",\n    \"fecha\": \"2025/11/09\",\n    \"montoEnARS\": 7000,\n    \"monto\": 7000,\n    \"moneda\": \"ARS\",\n    \"tipoConversion\": null\n}"
+				}
+			]
+		}
+	]
+}
