@@ -11,6 +11,38 @@ const getCotizacionesController = async (req, res) => {
     }
 };
 
+/**
+ * GET /dolar/convertir - Calcula una conversión en vivo.
+ */
+const getConversionController = async (req, res) => {
+    // Ej: ?monto=50&tipo=tarjeta&moneda=USD
+    const { monto, tipo, moneda } = req.body; 
+
+    if (!monto || !tipo || !moneda) {
+        return res.status(400).json({ error: 'Faltan parámetros: monto, tipo, moneda' });
+    }
+    
+    if (moneda !== 'USD') {
+        return res.json({ montoConvertido: parseFloat(monto) }); // No necesita conversión
+    }
+
+    try {
+        const cotizaciones = await dolarService.getCotizaciones(); // Usa el caché
+        const tipoDolar = cotizaciones.find(c => c.casa === tipo);
+
+        if (!tipoDolar) {
+            return res.status(404).json({ error: 'Tipo de cotización no válido' });
+        }
+
+        const montoConvertido = parseFloat(monto) * tipoDolar.venta;
+        res.json({ montoConvertido: Math.round(montoConvertido * 100) / 100 });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
-    getCotizacionesController
+    getCotizacionesController,
+    getConversionController
 };

@@ -44,5 +44,6 @@ app.listen(port, () => {
     DELETE /categorias/:id
 
     GET/dolar
+    GET /dolar/convertir
     `);
 });
