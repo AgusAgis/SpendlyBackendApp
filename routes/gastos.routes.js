@@ -1,3 +1,4 @@
+const upload = require('../middleware/upload');
 // routes/gastos.routes.js
 
 const express = require('express');
@@ -6,11 +7,13 @@ const gastosController = require('../controllers/gastos.controller'); // Importa
 
 // Rutas para /gastos
 router.get('/', gastosController.getGastos);      // GET /gastos
-router.post('/', gastosController.createGasto);    // POST /gastos
+router.post('/', upload.single('archivo'), gastosController.createGasto);    // POST /gastos
 
 // Rutas para /gastos/:id
 router.get('/:id', gastosController.getGasto);    // GET /gastos/:id
-router.put('/:id', gastosController.updateGastoController); // PUT /gastos/:id
+router.put('/:id', upload.single('archivo'), gastosController.updateGastoController); // PUT /gastos/:id
 router.delete('/:id', gastosController.deleteGastoController); // DELETE /gastos/:id
+
+
 
 module.exports = router;

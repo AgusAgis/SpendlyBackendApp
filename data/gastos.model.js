@@ -3,30 +3,36 @@
 let gastos = [
     { 
         id: 1, 
+        nombre: "Factura de luz",
         categoria: "Hogar", 
         fecha: "2025/11/03",
         montoEnARS: 11300,        // Monto principal (siempre ARS)
         monto: 11300,             // Monto que ingresó el usuario
         moneda: "ARS",            // Moneda que ingresó el usuario
-        tipoConversion: null      // Tipo de dólar usado (null si fue ARS)
+        tipoConversion: null,      // Tipo de dólar usado (null si fue ARS)
+        archivos: null
     },
     { 
         id: 2, 
+        nombre: "Netflix",
         categoria: "Entretenimiento", 
         fecha: "2025/11/04",
         montoEnARS: 9500,
         monto: 9500,
         moneda: "ARS",
-        tipoConversion: null
+        tipoConversion: null,
+        archivos: null
     },
     { 
         id: 3, 
+        nombre: "Hamburguesas",
         categoria: "Comida", 
         fecha: "2025/11/04",
         montoEnARS: 4000,
         monto: 4000,
         moneda: "ARS",
-        tipoConversion: null
+        tipoConversion: null,
+        archivos: null
     },
 ];
 
@@ -53,12 +59,14 @@ const findById = (id) => {
 const save = (data) => {
     const newGasto = {
         id: nextId++,
+        nombre: data.nombre,
         categoria: data.categoria,
         fecha: data.fecha,
         montoEnARS: data.montoEnARS, // El monto principal es en ARS
         monto: data.monto,
         moneda: data.moneda,
-        tipoConversion: data.tipoConversion
+        tipoConversion: data.tipoConversion,
+        archivos: data.archivos || null
     };
     gastos.push(newGasto);
     return newGasto;
@@ -73,8 +81,10 @@ const index = gastos.findIndex(gasto => gasto.id === id);
     if (index === -1) {
         return null; // Gasto no encontrado
     }
+    const gastoActual = gastos[index];
 
     const updatedGasto = { 
+        ...gastoActual,
         ...data,
         id: id
     };

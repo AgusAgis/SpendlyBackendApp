@@ -26,6 +26,7 @@ app.use(express.static('public'));
 app.use('/gastos', gastosRoutes);
 app.use('/categorias', categoriasRoutes);
 app.use('/dolar', dolarRoutes);
+app.use('/uploads', express.static('uploads'));
 
 // Inicialización del servidor
 app.listen(port, () => {

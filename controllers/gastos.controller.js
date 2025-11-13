@@ -33,11 +33,29 @@ const getGasto = (req, res) => {
  */
 const createGasto = async (req, res) => {
     try {
-        // El body ahora espera: { categoria, monto, fecha, moneda, tipoConversion}
-        const newGasto = await gastosService.addGasto(req.body);
+        let archivoSubido = null;
+
+        // Si viene un archivo, guardamos su ruta
+        if (req.file) {
+            archivoSubido = `/uploads/${req.file.filename}`;
+        }
+
+        // Datos del body
+        const data = {
+            nombre: req.body.nombre,
+            categoria: req.body.categoria,
+            monto: req.body.monto,
+            fecha: req.body.fecha,
+            moneda: req.body.moneda,
+            tipoConversion: req.body.tipoConversion,
+            archivo: archivoSubido
+        };
+
+        const newGasto = await gastosService.addGasto(data);
+
         res.status(201).json(newGasto);
+
     } catch (error) {
-        // Captura el error de validación lanzado por el servicio
         res.status(400).json({ error: error.message });
     }
 };
@@ -46,24 +64,42 @@ const createGasto = async (req, res) => {
  * PUT /gastos/:id - Actualiza un gasto por su ID.
  */
 const updateGastoController = async (req, res) => {
-    try{
+    try {
         const id = parseInt(req.params.id);
-
         if (isNaN(id)) {
-          return res.status(400).json({ error: 'ID inválido' });
+            return res.status(400).json({ error: 'ID inválido' });
         }
 
-        const updatedGasto = await gastosService.updateGasto(id, req.body);
+        const data = { ...req.body };
 
-        if (updatedGasto) {
-            res.json(updatedGasto);
-        } else {
-            res.status(404).json({ error: 'Gasto no encontrado para actualizar' });
+        // Si viene un archivo → reemplazar archivo previo
+        if (req.file) {
+            data.archivo = `/uploads/${req.file.filename}`;
         }
-    }catch (error) {
+
+        // Si se recibe literal "null" en archivo → eliminar archivo
+        if (req.body.archivo === "null") {
+            data.archivo = null;
+        }
+
+                // limpiar propiedades vacías ("" o undefined)
+        Object.keys(data).forEach(key => {
+            if (data[key] === "" || data[key] === undefined) {
+                delete data[key];
+            }
+        });
+
+        const updatedGasto = await gastosService.updateGasto(id, data);
+
+        if (!updatedGasto) {
+            return res.status(404).json({ error: 'Gasto no encontrado para actualizar' });
+        }
+
+        res.json(updatedGasto);
+
+    } catch (error) {
         res.status(400).json({ error: error.message });
     }
-    
 };
 
 /**
@@ -85,10 +121,32 @@ const deleteGastoController = (req, res) => {
     }
 };
 
+const uploadArchivo = (req, res) => {
+    const id = parseInt(req.params.id);
+    
+    if (isNaN(id)) {
+        return res.status(400).json({ error: "ID inválido" });
+    }
+
+    if (!req.file) {
+        return res.status(400).json({ error: "No se envió ningún archivo" });
+    }
+
+    const rutaArchivo = `/uploads/${req.file.filename}`;
+    
+    try {
+        const gasto = gastosService.agregarArchivoAGasto(id, rutaArchivo);
+        res.status(200).json(gasto);
+    } catch (error) {
+        res.status(404).json({ error: error.message });
+    }
+};
+
 module.exports = {
     getGastos,
     getGasto,
     createGasto,
     updateGastoController,
-    deleteGastoController
+    deleteGastoController,
+    uploadArchivo
 };
