@@ -1,13 +1,12 @@
-// services/dolar.service.js
 const axios = require('axios');
 
-// Caché simple en memoria (le pegamos a la api cada 10min es mucho capaz)
+// Caché simple en memoria (le pegamos a la api cada 1hr)
 let cache = {
     timestamp: 0,
     data: null
 };
 
-// Cachear por 1 hora
+// guarda por 1 hora
 const CACHE_DURATION = 3600000; 
 
 const getCotizaciones = async () => {
@@ -21,14 +20,14 @@ const getCotizaciones = async () => {
         console.log("Buscando de DolarAPI");
         const response = await axios.get('https://dolarapi.com/v1/dolares');
 
-        // Guardar en caché
+        // guardo en cache
         cache.data = response.data;
         cache.timestamp = now;
 
         return response.data;
     } catch (error) {
         console.error("Error al buscar en DolarAPI:", error.message);
-        // Si falla, pero tengo caché vieja, sirvo la vieja.
+        //si falla uso info vieja
         if(cache.data) return cache.data;
         throw new Error("No se pudo obtener la cotización");
     }

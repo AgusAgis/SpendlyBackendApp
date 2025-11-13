@@ -1,9 +1,8 @@
-// controllers/categorias.controller.js
+const categoriasService = require('../services/categorias.service'); 
 
-const categoriasService = require('../services/categorias.service'); // Importa la capa de Servicio
 
 /**
- * Handler para GET /categorias - Obtiene todas las categorias.
+ * GET /categorias - Obtiene todas las categorias.
  */
 const getCategoriasController = (req, res) => {
     const categorias = categoriasService.getAllCategorias();
@@ -11,7 +10,7 @@ const getCategoriasController = (req, res) => {
 };
 
 /**
- * Handler para GET /categorias/:id - Obtiene una categorias por su ID.
+ * GET /categorias/:id - Obtiene una categorias por su ID.
  */
 const getCategoriaController = (req, res) => {
     const id = parseInt(req.params.id);
@@ -30,7 +29,7 @@ const getCategoriaController = (req, res) => {
 };
 
 /**
- * Handler para POST /categorias - Incorpora una nueva categoria.
+ * POST /categorias - Incorpora una nueva categoria.
  */
 const createCategoriaController = (req, res) => {
     try {
@@ -43,7 +42,7 @@ const createCategoriaController = (req, res) => {
 };
 
 /**
- * Handler para PUT /categorias/:id - Actualiza una categoria por su ID.
+ * PUT /categorias/:id - Actualiza una categoria por su ID.
  */
 const updateCategoriaController = (req, res) => {
     const id = parseInt(req.params.id);
@@ -62,7 +61,7 @@ const updateCategoriaController = (req, res) => {
 };
 
 /**
- * Handler para DELETE /categorias/:id - Borra una categoria por su ID.
+ * DELETE /categorias/:id - Borra una categoria por su ID.
  */
 const deleteCategoriaController = (req, res) => {
     const id = parseInt(req.params.id);

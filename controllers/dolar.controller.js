@@ -11,10 +11,10 @@ const getCotizacionesController = async (req, res) => {
 };
 
 /**
- * GET /dolar/convertir - Calcula una conversión en vivo.
+ * GET /dolar/convertir - calcula conversion
  */
 const getConversionController = async (req, res) => {
-    // Ej: ?monto=50&tipoConversion=tarjeta&moneda=USD
+    // monto=50 tipoConversion=tarjeta moneda=USD
     const { monto, tipoConversion, moneda } = req.query; 
 
     if (!monto || !tipoConversion || !moneda) {
@@ -26,7 +26,7 @@ const getConversionController = async (req, res) => {
     }
 
     try {
-        const cotizaciones = await dolarService.getCotizaciones(); // Usa el caché
+        const cotizaciones = await dolarService.getCotizaciones();
         const tipoDolar = cotizaciones.find(c => c.casa === tipoConversion);
 
         if (!tipoDolar) {

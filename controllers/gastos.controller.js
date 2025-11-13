@@ -1,9 +1,8 @@
-// controllers/gastos.controller.js
+const gastosService = require('../services/gastos.service'); 
 
-const gastosService = require('../services/gastos.service'); // Importa la capa de Servicio
 
 /**
- * Handler para GET /gastos - Obtiene todos los gastos.
+ * GET /gastos - todos los gastos
  */
 const getGastos = (req, res) => {
     const allGastos = gastosService.getAllGastos();
@@ -11,7 +10,7 @@ const getGastos = (req, res) => {
 };
 
 /**
- * Handler para GET /gastos/:id - Obtiene un gasto por su ID.
+ * GET /gastos/:id - gassto por ID
  */
 const getGasto = (req, res) => {
     const id = parseInt(req.params.id);
@@ -30,7 +29,7 @@ const getGasto = (req, res) => {
 };
 
 /**
- * Handler para POST /gastos - Incorpora un nuevo gasto.
+ * POST /gastos - agregar un nuevo gasto.
  */
 const createGasto = async (req, res) => {
     try {
@@ -44,7 +43,7 @@ const createGasto = async (req, res) => {
 };
 
 /**
- * Handler para PUT /gastos/:id - Actualiza un gasto por su ID.
+ * PUT /gastos/:id - Actualiza un gasto por su ID.
  */
 const updateGastoController = async (req, res) => {
     try{
@@ -68,7 +67,7 @@ const updateGastoController = async (req, res) => {
 };
 
 /**
- * Handler para DELETE /gastos/:id - Borra un gasto por su ID.
+ * DELETE /gastos/:id - Borra un gasto por su ID.
  */
 const deleteGastoController = (req, res) => {
     const id = parseInt(req.params.id);

@@ -1,23 +1,21 @@
-// services/categorias.service.js
-
-const categoriaModel = require('../data/categorias.model'); // Importa la capa de Persistencia
+const categoriaModel = require('../data/categorias.model'); 
 
 /**
- * Servicio para obtener todas las categoria realizados.
+ * obtener todas las categoria realizados.
  */
 const getAllCategorias = () => {
     return categoriaModel.findAll();
 };
 
 /**
- * Servicio para obtener una categoria por ID.
+ * obtener una categoria por ID.
  */
 const getCategoriaById = (id) => {
     return categoriaModel.findById(id);
 };
 
 /**
- * Servicio para agregar una nueva Categoria (incluye validación de negocio).
+ * agregar una nueva Categoria
  */
 const addCategoria = (data) => {
     if (!data.titulo || !data.imagen) {
@@ -29,15 +27,14 @@ const addCategoria = (data) => {
 };
 
 /**
- * Servicio para actualizar una categoria por ID.
+ * actualizar una categoria por ID.
  */
 const updateCategoria = (id, data) => {
-    // Si necesitas validaciones de negocio antes de la actualización, irían aquí.
     return categoriaModel.update(id, data);
 };
 
 /**
- * Servicio para borrar un Categoria por ID.
+ * borrar un Categoria por ID.
  */
 const deleteCategoria = (id) => {
     return categoriaModel.remove(id);

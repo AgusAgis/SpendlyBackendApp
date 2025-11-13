@@ -1,6 +1,5 @@
-// data/gastos.model.js
 
-// Array en memoria para almacenar los gastos (Persistencia en Memoria).
+// en memoria gastos
 let gastos = [
     { 
         id: 1, 
@@ -31,25 +30,25 @@ let gastos = [
     },
 ];
 
-// Contador para asignar IDs únicos y consecutivos.
+//cont ids
 let nextId = 4;
 
 /**
- * Obtiene la lista completa de gastos.
+ * lista completa de gastos
  */
 const findAll = () => {
     return gastos;
 };
 
 /**
- * Busca un gasto por su ID.
+ * find un gasto por su Id
  */
 const findById = (id) => {
     return gastos.find(gasto => gasto.id === id);
 };
 
 /**
- * Crea y añade un nuevo gasto.
+ * crear y agregar un gasto
  */
 const save = (data) => {
     const newGasto = {
@@ -66,7 +65,7 @@ const save = (data) => {
 };
 
 /**
- * Actualiza un gasto existente por ID.
+ * update gasto por id
  */
 const update = (id, data) => {
 const index = gastos.findIndex(gasto => gasto.id === id);
@@ -75,10 +74,9 @@ const index = gastos.findIndex(gasto => gasto.id === id);
         return null; // Gasto no encontrado
     }
 
-    // Aseguramos que solo se actualicen los campos provistos
     const updatedGasto = { 
-        ...data, // Usamos todos los datos que nos pasa el servicio
-        id: id   // Nos aseguramos que el ID no cambie
+        ...data,
+        id: id
     };
   
     gastos[index] = updatedGasto;
@@ -86,13 +84,13 @@ const index = gastos.findIndex(gasto => gasto.id === id);
 };
 
 /**
- * Elimina un gasto por ID.
+ * elimina gasto por id
  */
 const remove = (id) => {
     const index = gastos.findIndex(gasto => gasto.id === id);
 
     if (index === -1) {
-        return false; // No encontrado
+        return false;
     }
 
     gastos.splice(index, 1);

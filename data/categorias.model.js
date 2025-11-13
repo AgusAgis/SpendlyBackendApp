@@ -1,32 +1,22 @@
-// data/categorias.model.js
-
-// Array en memoria para almacenar las categorias (Persistencia en Memoria).
 let categorias = [
     { id: 1, titulo: "Hogar", imagen: "https://cdn-icons-png.flaticon.com/512/6676/6676728.png" },
     { id: 2, titulo: "Entretenimiento", imagen: "https://cdn-icons-png.flaticon.com/512/4319/4319047.png" },
     { id: 3, titulo: "Comida", imagen: "https://images.unsplash.com/vector-1739806651163-75929fa8e121?fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8&ixlib=rb-4.1.0&q=60&w=3000" },
 ];
 
-// Contador para asignar IDs únicos y consecutivos.
 let nextId = 4;
 
-/**
- * Obtiene la lista completa de las categorias.
- */
+
 const findAll = () => {
     return categorias;
 };
 
-/**
- * Busca una categorias por su ID.
- */
+
 const findById = (id) => {
     return categorias.find(categoria => categoria.id === id);
 };
 
-/**
- * Crea y añade una nueva categoria.
- */
+
 const save = (data) => {
     const newgCategoria = {
         id: nextId++,
@@ -37,14 +27,12 @@ const save = (data) => {
     return newgCategoria;
 };
 
-/**
- * Actualiza una categoria existente por ID.
- */
+
 const update = (id, data) => {
     const index = categorias.findIndex(categoria => categoria.id === id);
 
     if (index === -1) {
-        return null; // Categoria no encontrado
+        return null;
     }
 
     const updatedCategoria = {
@@ -57,14 +45,12 @@ const update = (id, data) => {
     return updatedCategoria;
 };
 
-/**
- * Elimina una categoria por ID.
- */
+
 const remove = (id) => {
     const index = categorias.findIndex(categoria => categoria.id === id);
 
     if (index === -1) {
-        return false; // No encontrada
+        return false;
     }
 
     categorias.splice(index, 1);
