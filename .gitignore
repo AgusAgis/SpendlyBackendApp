@@ -3,3 +3,4 @@
 # MAC OS (Apple Git)
 .DS_Store
 uploads/
+.env

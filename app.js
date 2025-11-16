@@ -1,9 +1,11 @@
 // app.js (Archivo principal)
 
+require('dotenv').config();
 // Importamos Express
 const express = require('express');
 const app = express();
-const port = 8080;
+
+const port = process.env.PORT || 8080;
 
 // Importamos las rutas de gastos y categorias
 const gastosRoutes = require('./routes/gastos.routes');
