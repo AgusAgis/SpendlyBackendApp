@@ -9,6 +9,8 @@ require('dotenv').config();
 // Importamos Express
 const express = require('express');
 const app = express();
+const fs = require('fs');
+const path = require('path');
 
 const port = PORT;
 
