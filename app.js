@@ -21,7 +21,7 @@ const port = PORT;
 const gastosRoutes = require('./routes/gastos.routes');
 const categoriasRoutes = require('./routes/categorias.routes');
 const dolarRoutes = require('./routes/dolar.routes.js');
-
+const authRoutes = require('./routes/auth.routes.js');
 
 // Middleware
 // Para parsear JSON en el cuerpo de las peticiones (POST, PUT)
@@ -49,6 +49,7 @@ app.use('/gastos', gastosRoutes);
 app.use('/categorias', categoriasRoutes);
 app.use('/dolar', dolarRoutes);
 app.use('/uploads', express.static('uploads'));
+app.use('/auth', authRoutes);
 
 // ===============================================
 // INICIO ASÍNCRONO DEL SERVIDOR
