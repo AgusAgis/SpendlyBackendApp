@@ -1,51 +1,33 @@
-//const categoriaModel = require('../data/categorias.mem.dao'); 
 const { CategoriasDAO } = require('../data/factory');
 const categoriaModel = CategoriasDAO;
 
-/**
- * obtener todas las categoria realizados.
- */
-const getAllCategorias = () => {
-    return categoriaModel.findAll();
+const getAllCategorias = async () => {
+  return await categoriaModel.findAll();
 };
 
-/**
- * obtener una categoria por ID.
- */
-const getCategoriaById = (id) => {
-    return categoriaModel.findById(id);
+const getCategoriaById = async (id) => {
+  return await categoriaModel.findById(id);
 };
 
-/**
- * agregar una nueva Categoria
- */
-const addCategoria = (data) => {
-    if (!data.titulo || !data.imagen) {
-        // Lanza un error que será capturado por el controlador
-        throw new Error("Datos incompletos. Se requieren titulo e imagen.");
-    }
-
-    return categoriaModel.save(data);
+const addCategoria = async (data) => {
+  if (!data.titulo) {
+    throw new Error("Datos incompletos. Se requiere titulo.");
+  }
+  return await categoriaModel.save(data);
 };
 
-/**
- * actualizar una categoria por ID.
- */
-const updateCategoria = (id, data) => {
-    return categoriaModel.update(id, data);
+const updateCategoria = async (id, data) => {
+  return await categoriaModel.update(id, data);
 };
 
-/**
- * borrar un Categoria por ID.
- */
-const deleteCategoria = (id) => {
-    return categoriaModel.remove(id);
+const deleteCategoria = async (id) => {
+  return await categoriaModel.remove(id);
 };
 
 module.exports = {
-    getAllCategorias,
-    getCategoriaById,
-    addCategoria,
-    updateCategoria,
-    deleteCategoria
+  getAllCategorias,
+  getCategoriaById,
+  addCategoria,
+  updateCategoria,
+  deleteCategoria
 };

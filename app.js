@@ -4,8 +4,11 @@
 const { PORT } = require('./config');
 // Importamos la conexión a la DB
 const dbConnection = require('./db/connection');
+const { seedCategorias } = require('./db/seed'); 
 
-require('dotenv').config();
+
+
+
 // Importamos Express
 const express = require('express');
 const app = express();
@@ -54,6 +57,7 @@ const startServer = async () => {
     try {
         // 1. Conectar a la base de datos
         await dbConnection();
+        await seedCategorias();  
         // Inicialización del servidor
         app.listen(port, () => {
             console.log(`Servidor de gastos escuchando en http://localhost:${port}`);

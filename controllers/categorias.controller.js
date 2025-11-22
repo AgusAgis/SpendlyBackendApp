@@ -1,88 +1,60 @@
-const categoriasService = require('../services/categorias.service'); 
+const categoriasService = require('../services/categorias.service');
 
-
-/**
- * GET /categorias - Obtiene todas las categorias.
- */
-const getCategoriasController = (req, res) => {
-    const categorias = categoriasService.getAllCategorias();
+const getCategoriasController = async (req, res) => {
+  try {
+    const categorias = await categoriasService.getAllCategorias();
     res.json(categorias);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 };
 
-/**
- * GET /categorias/:id - Obtiene una categorias por su ID.
- */
-const getCategoriaController = (req, res) => {
-    const id = parseInt(req.params.id);
-
-    if (isNaN(id)) {
-        return res.status(400).json({ error: 'ID inválido' });
-    }
-
-    const categoria = categoriasService.getCategoriaById(id);
-
-    if (categoria) {
-        res.json(categoria);
-    } else {
-        res.status(404).json({ error: 'Categoria no encontrado' });
-    }
+const getCategoriaController = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const categoria = await categoriasService.getCategoriaById(id);
+    if (categoria) res.json(categoria);
+    else res.status(404).json({ error: "Categoria no encontrada" });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 };
 
-/**
- * POST /categorias - Incorpora una nueva categoria.
- */
-const createCategoriaController = (req, res) => {
-    try {
-        const newCategoria = categoriasService.addCategoria(req.body);
-        res.status(201).json(newCategoria);
-    } catch (error) {
-        // Captura el error de validación lanzado por el servicio
-        res.status(400).json({ error: error.message });
-    }
+const createCategoriaController = async (req, res) => {
+  try {
+    const newCategoria = await categoriasService.addCategoria(req.body);
+    res.status(201).json(newCategoria);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 };
 
-/**
- * PUT /categorias/:id - Actualiza una categoria por su ID.
- */
-const updateCategoriaController = (req, res) => {
-    const id = parseInt(req.params.id);
-
-    if (isNaN(id)) {
-        return res.status(400).json({ error: 'ID inválido' });
-    }
-
-    const updatedCategoria = categoriasService.updateCategoria(id, req.body);
-
-    if (updatedCategoria) {
-        res.json(updatedCategoria);
-    } else {
-        res.status(404).json({ error: 'Categoria no encontrada para actualizar' });
-    }
+const updateCategoriaController = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updated = await categoriasService.updateCategoria(id, req.body);
+    if (updated) res.json(updated);
+    else res.status(404).json({ error: "Categoria no encontrada" });
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 };
 
-/**
- * DELETE /categorias/:id - Borra una categoria por su ID.
- */
-const deleteCategoriaController = (req, res) => {
-    const id = parseInt(req.params.id);
-
-    if (isNaN(id)) {
-        return res.status(400).json({ error: 'ID inválido' });
-    }
-
-    const wasDeleted = categoriasService.deleteCategoria(id);
-
-    if (wasDeleted) {
-        res.status(204).send();
-    } else {
-        res.status(404).json({ error: 'Categoria no encontrado para borrar' });
-    }
+const deleteCategoriaController = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const ok = await categoriasService.deleteCategoria(id);
+    if (ok) res.status(204).send();
+    else res.status(404).json({ error: "Categoria no encontrada" });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 };
 
 module.exports = {
-    getCategoriasController,
-    getCategoriaController,
-    createCategoriaController,
-    updateCategoriaController,
-    deleteCategoriaController
+  getCategoriasController,
+  getCategoriaController,
+  createCategoriaController,
+  updateCategoriaController,
+  deleteCategoriaController
 };

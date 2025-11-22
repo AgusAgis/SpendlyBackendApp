@@ -17,12 +17,10 @@ const getGastos = async (req, res) => {
  * GET /gastos/:id - gassto por ID
  */
 const getGasto = async (req, res) => {
-    const id = parseInt(req.params.id);
-
-    if (isNaN(id)) {
+    const id = req.params.id;
+    if (!id) {
         return res.status(400).json({ error: 'ID inválido' });
     }
-
     try {
         const gasto = await gastosService.getGastoById(id);
 
@@ -56,6 +54,7 @@ const createGasto = async (req, res) => {
             fecha: req.body.fecha,
             moneda: req.body.moneda,
             tipoConversion: req.body.tipoConversion,
+            imagen: req.body.imagen,
             archivo: archivoSubido
         };
 
@@ -73,8 +72,8 @@ const createGasto = async (req, res) => {
  */
 const updateGastoController = async (req, res) => {
     try {
-        const id = parseInt(req.params.id);
-        if (isNaN(id)) {
+        const id = req.params.id;
+        if (!id) {
             return res.status(400).json({ error: 'ID inválido' });
         }
 
@@ -114,9 +113,9 @@ const updateGastoController = async (req, res) => {
  * DELETE /gastos/:id - Borra un gasto por su ID.
  */
 const deleteGastoController = async (req, res) => {
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
 
-    if (isNaN(id)) {
+    if (!id) {
         return res.status(400).json({ error: 'ID inválido' });
     }
 
@@ -134,9 +133,9 @@ const deleteGastoController = async (req, res) => {
 };
 
 const uploadArchivo = async (req, res) => {
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
     
-    if (isNaN(id)) {
+    if (!id) {
         return res.status(400).json({ error: "ID inválido" });
     }
 

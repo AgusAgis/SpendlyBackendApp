@@ -1,8 +1,9 @@
 //const gastosModel = require('../data/gastos.mem.dao');
 const dolarService = require('../services/dolar.service');
 
-const { GastosDAO } = require('../data/factory');
+const { CategoriasDAO, GastosDAO } = require('../data/factory');
 const gastosModel = GastosDAO;
+const categoriasModel = CategoriasDAO;
 
 /**
  * obtener todos los gastos realizados.
@@ -21,53 +22,55 @@ const getGastoById = async (id) => {
 /**
  * agregar un nuevo gasto
  */
+
+
 const addGasto = async (data) => {
+  if (!data.nombre || !data.categoria || !data.monto || !data.fecha || !data.moneda) {
+    throw new Error("Datos incompletos. Se requieren nombre, categoria, monto, fecha y moneda.");
+  }
 
-    if (!data.nombre || !data.categoria || !data.monto || !data.fecha || !data.moneda) {
-        throw new Error("Datos incompletos. Se requieren nombre, categoria, monto, fecha y moneda.");
+  // 1) calcular montoEnARS como ya lo hacés
+  let montoEnARS;
+  const monto = parseFloat(data.monto);
+  const moneda = data.moneda;
+  const tipoConversion = data.tipoConversion;
+
+  if (moneda === 'USD') {
+    if (!tipoConversion) throw new Error("Para USD se requiere tipoConversion.");
+    const cotizaciones = await dolarService.getCotizaciones();
+    const tipoDolar = cotizaciones.find(c => c.casa === tipoConversion);
+    if (!tipoDolar) throw new Error("Tipo de conversión no encontrado.");
+    montoEnARS = monto * tipoDolar.venta;
+  } else {
+    montoEnARS = monto;
+  }
+
+  // 2) ✅ traer imagen desde categoría si no vino en el body
+  let imagenFinal = data.imagen || null;
+
+  if (!imagenFinal) {
+    const categorias = await categoriasModel.findAll();
+    const catMatch = categorias.find(c => c.titulo === data.categoria);
+
+    if (catMatch?.imagen) {
+      imagenFinal = catMatch.imagen;
     }
+  }
 
-    let montoEnARS;
-    const monto = parseFloat(data.monto);
-    const moneda = data.moneda;
-    const tipoConversion = data.tipoConversion;
+  // 3) armar gasto final
+  const gastoParaGuardar = {
+    nombre: data.nombre,
+    categoria: data.categoria,
+    fecha: data.fecha,
+    imagen: imagenFinal,
+    montoEnARS: Math.round(montoEnARS * 100) / 100,
+    monto,
+    moneda,
+    tipoConversion: moneda === 'USD' ? tipoConversion : null,
+    archivo: data.archivo || null
+  };
 
-    // Si la moneda es USD, convierte
-    if (moneda === 'USD') {
-        if (!tipoConversion) {
-            throw new Error("Para un gasto en USD, se requiere un 'tipoConversion'.");
-        }
-
-        const cotizaciones = await dolarService.getCotizaciones();
-        const tipoDolar = cotizaciones.find(c => c.casa === tipoConversion);
-
-        if (!tipoDolar) {
-            throw new Error(`Tipo de conversión '${tipoConversion}' no encontrado.`);
-        }
-
-        montoEnARS = monto * tipoDolar.venta;
-
-    } else {
-        montoEnARS = monto;
-    }
-
-    const gastoParaGuardar = {
-        nombre: data.nombre,
-        categoria: data.categoria,
-        fecha: data.fecha,
-        montoEnARS: Math.round(montoEnARS * 100) / 100,
-        monto: monto,
-        moneda: moneda,
-        tipoConversion: moneda === 'USD' ? tipoConversion : null,
-        archivos: data.archivo || null
-    };
-
-    // Si vino archivo → guardarlo
-    if (data.archivo) {
-        gastoParaGuardar.archivo = data.archivo || null;
-    }
-
-    return gastosModel.save(gastoParaGuardar);
+  return await gastosModel.save(gastoParaGuardar);
 };
 
 /**
@@ -116,9 +119,7 @@ const agregarArchivoAGasto = async (id, rutaArchivo) => {
     const gasto = await gastosModel.findById(id);
     if (!gasto) throw new Error("Gasto no encontrado");
 
-    if (!gasto.archivos) gasto.archivos = [];
-
-    gasto.archivos.push(rutaArchivo);
+    gasto.archivo = rutaArchivo;
 
     await gastosModel.update(id, gasto);
 

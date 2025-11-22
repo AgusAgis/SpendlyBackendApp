@@ -10,7 +10,7 @@ let gastos = [
         monto: 11300,             // Monto que ingresó el usuario
         moneda: "ARS",            // Moneda que ingresó el usuario
         tipoConversion: null,      // Tipo de dólar usado (null si fue ARS)
-        archivos: null
+        archivo: null
     },
     { 
         id: 2, 
@@ -21,7 +21,7 @@ let gastos = [
         monto: 9500,
         moneda: "ARS",
         tipoConversion: null,
-        archivos: null
+        archivo: null
     },
     { 
         id: 3, 
@@ -32,7 +32,7 @@ let gastos = [
         monto: 4000,
         moneda: "ARS",
         tipoConversion: null,
-        archivos: null
+        archivo: null
     },
 ];
 
@@ -50,7 +50,7 @@ const findAll = () => {
  * find un gasto por su Id
  */
 const findById = (id) => {
-    return gastos.find(gasto => gasto.id === id);
+  return gastos.find(gasto => gasto.id === Number(id));
 };
 
 /**
@@ -66,7 +66,7 @@ const save = (data) => {
         monto: data.monto,
         moneda: data.moneda,
         tipoConversion: data.tipoConversion,
-        archivos: data.archivos || null
+        archivo: data.archivo || null
     };
     gastos.push(newGasto);
     return newGasto;
@@ -76,35 +76,21 @@ const save = (data) => {
  * update gasto por id
  */
 const update = (id, data) => {
-const index = gastos.findIndex(gasto => gasto.id === id);
-
-    if (index === -1) {
-        return null; // Gasto no encontrado
-    }
-    const gastoActual = gastos[index];
-
-    const updatedGasto = { 
-        ...gastoActual,
-        ...data,
-        id: id
-    };
-  
-    gastos[index] = updatedGasto;
-    return updatedGasto;
+  const index = gastos.findIndex(gasto => gasto.id === Number(id));
+  if (index === -1) return null;
+  gastos[index] = { ...gastos[index], ...data, id: Number(id) };
+  return gastos[index];
 };
 
 /**
  * elimina gasto por id
  */
+
 const remove = (id) => {
-    const index = gastos.findIndex(gasto => gasto.id === id);
-
-    if (index === -1) {
-        return false;
-    }
-
-    gastos.splice(index, 1);
-    return true;
+  const index = gastos.findIndex(gasto => gasto.id === Number(id));
+  if (index === -1) return false;
+  gastos.splice(index, 1);
+  return true;
 };
 
 module.exports = {
