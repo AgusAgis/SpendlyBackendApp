@@ -1,9 +1,12 @@
 const { faker } = require('@faker-js/faker');
 
 const categorias = [
-    'Educacion',
-    'Salud',
-    'Entretenimiento'
+  'Comida',
+  'Transporte',
+  'Entretenimiento',
+  'Hogar',
+  'Educación',
+  'Salud'
 ]
 const get = () => ({
     "id": faker.number.int({ min: 10, max: 10000 }),
