@@ -15,7 +15,7 @@ const getCotizacionesController = async (req, res) => {
  */
 const getConversionController = async (req, res) => {
     // monto=50 tipoConversion=tarjeta moneda=USD
-    const { monto, tipoConversion, moneda } = req.body; 
+    const { monto, tipoConversion, moneda } = req.query; 
 
     if (!monto || !tipoConversion || !moneda) {
         return res.status(400).json({ error: 'Faltan parámetros: monto, tipoConversion, moneda' });
