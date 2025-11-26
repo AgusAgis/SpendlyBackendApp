@@ -1,5 +1,7 @@
 //const gastosModel = require('../data/gastos.mem.dao');
 const dolarService = require('../services/dolar.service');
+const { validarGastoCrear, validarGastoActualizar } = require('../services/validaciones/gastos');
+
 
 const { CategoriasDAO, GastosDAO } = require('../data/factory');
 const gastosModel = GastosDAO;
@@ -25,11 +27,14 @@ const getGastoById = async (id) => {
 
 
 const addGasto = async (data) => {
-  if (!data.nombre || !data.categoria || !data.monto || !data.fecha || !data.moneda) {
-    throw new Error("Datos incompletos. Se requieren nombre, categoria, monto, fecha y moneda.");
+  //  Validación de alta con Joi
+  const { result, error } = validarGastoCrear(data);
+  if (!result) {
+    const mensajes = error.details.map(d => d.message).join(', ');
+    throw new Error(`Datos inválidos del gasto: ${mensajes}`);
   }
 
-  // 1) calcular montoEnARS como ya lo hacés
+  //  calcular montoEnARS como ya lo hacés
   let montoEnARS;
   const monto = parseFloat(data.monto);
   const moneda = data.moneda;
@@ -45,7 +50,7 @@ const addGasto = async (data) => {
     montoEnARS = monto;
   }
 
-  // 2) ✅ traer imagen desde categoría si no vino en el body
+  // traer imagen desde categoría si no vino en el body
   let imagenFinal = data.imagen || null;
 
   if (!imagenFinal) {
@@ -57,7 +62,7 @@ const addGasto = async (data) => {
     }
   }
 
-  // 3) armar gasto final
+  // armar gasto final
   const gastoParaGuardar = {
     nombre: data.nombre,
     categoria: data.categoria,
@@ -77,35 +82,54 @@ const addGasto = async (data) => {
  * actualizar un gasto por ID.
  */
 const updateGasto = async (id, data) => {
-    const gastoExistente = await gastosModel.findById(id);
-    if (!gastoExistente) return null;
+  const gastoExistente = await gastosModel.findById(id);
+  if (!gastoExistente) return null;
 
-    const updatedData = {
-        ...gastoExistente,      // mantenemos lo que ya tenía
-        ...data                 // reemplazamos solo lo que viene
-    };
+  //  Validar SOLO lo que viene para actualizar
+  const { result, error } = validarGastoActualizar(data);
+  if (!result) {
+    const mensajes = error.details.map(d => d.message).join(', ');
+    throw new Error(`Datos inválidos para actualizar gasto: ${mensajes}`);
+  }
 
-    // Si hay monto nuevo → recalcular
-    if (data.monto !== undefined) {
-        const monto = parseFloat(data.monto);
+  // Mezclamos datos existentes con los nuevos
+  const updatedData = {
+    ...gastoExistente,
+    ...data
+  };
 
-        if (!data.moneda) {
-            throw new Error("Para actualizar monto se debe enviar 'moneda'.");
-        }
+  // Si hay monto nuevo → recalcular montoEnARS
+  if (data.monto !== undefined) {
+    const monto = parseFloat(data.monto);
 
-        if (data.moneda === "USD") {
-            const cotizaciones = await dolarService.getCotizaciones();
-            const tipoDolar = cotizaciones.find(c => c.casa === data.tipoConversion);
+    // Si no mandaste moneda en el body, uso la moneda que ya tenía el gasto
+    const moneda = data.moneda || gastoExistente.moneda;
 
-            if (!tipoDolar) throw new Error("Tipo de dólar inválido.");
-
-            updatedData.montoEnARS = monto * parseFloat(tipoDolar.venta);
-        } else {
-            updatedData.montoEnARS = monto;
-        }
+    if (!moneda) {
+      throw new Error("Para actualizar el monto se debe contar con 'moneda'.");
     }
 
-    return await gastosModel.update(id, updatedData);
+    if (moneda === "USD") {
+      const tipoConversion = data.tipoConversion || gastoExistente.tipoConversion;
+      if (!tipoConversion) {
+        throw new Error("Para USD se requiere 'tipoConversion'.");
+      }
+
+      const cotizaciones = await dolarService.getCotizaciones();
+      const tipoDolar = cotizaciones.find(c => c.casa === tipoConversion);
+      if (!tipoDolar) throw new Error("Tipo de dólar inválido.");
+
+      updatedData.moneda = "USD";
+      updatedData.tipoConversion = tipoConversion;
+      updatedData.montoEnARS = monto * parseFloat(tipoDolar.venta);
+    } else {
+      updatedData.moneda = "ARS";
+      updatedData.tipoConversion = null;
+      updatedData.montoEnARS = monto;
+    }
+  }
+
+  return await gastosModel.update(id, updatedData);
 };
 
 /**

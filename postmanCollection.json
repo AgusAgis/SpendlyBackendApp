@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "fe320539-c865-49c4-a08d-5697a65ba723",
+		"_postman_id": "e2bd577e-f7d1-43c8-ab8d-748e8a047e79",
 		"name": "TP2-Spendly-back",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "7969977"
+		"_exporter_id": "49156340",
+		"_collection_link": "https://matiastello182-7454916.postman.co/workspace/Matias-T's-Workspace~74af8582-a6bf-4a0b-8b85-416ef8549eab/collection/49156340-e2bd577e-f7d1-43c8-ab8d-748e8a047e79?action=share&source=collection_link&creator=49156340"
 	},
 	"item": [
 		{
@@ -43,7 +44,7 @@
 					},
 					"status": "OK",
 					"code": 200,
-					"_postman_previewlanguage": "",
+					"_postman_previewlanguage": "Text",
 					"header": [
 						{
 							"key": "X-Powered-By",
@@ -137,7 +138,7 @@
 					},
 					"status": "OK",
 					"code": 200,
-					"_postman_previewlanguage": "",
+					"_postman_previewlanguage": "Text",
 					"header": [
 						{
 							"key": "X-Powered-By",
@@ -228,7 +229,7 @@
 					},
 					"status": "Created",
 					"code": 201,
-					"_postman_previewlanguage": null,
+					"_postman_previewlanguage": "Text",
 					"header": [
 						{
 							"key": "X-Powered-By",
@@ -290,7 +291,7 @@
 					},
 					"status": "Created",
 					"code": 201,
-					"_postman_previewlanguage": null,
+					"_postman_previewlanguage": "Text",
 					"header": [
 						{
 							"key": "X-Powered-By",
@@ -352,7 +353,7 @@
 					},
 					"status": "Created",
 					"code": 201,
-					"_postman_previewlanguage": null,
+					"_postman_previewlanguage": "Text",
 					"header": [
 						{
 							"key": "X-Powered-By",
@@ -424,15 +425,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"monto\" : 15000,\n    \"tipo\" : \"tarjeta\",\n    \"moneda\" : \"USD\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://localhost:8080/dolar/convertir",
 							"protocol": "http",
@@ -448,7 +440,7 @@
 					},
 					"status": "OK",
 					"code": 200,
-					"_postman_previewlanguage": null,
+					"_postman_previewlanguage": "Text",
 					"header": [
 						{
 							"key": "X-Powered-By",
@@ -539,7 +531,7 @@
 					},
 					"status": "Created",
 					"code": 201,
-					"_postman_previewlanguage": "",
+					"_postman_previewlanguage": "Text",
 					"header": [
 						{
 							"key": "X-Powered-By",
@@ -576,9 +568,12 @@
 			]
 		},
 		{
-			"name": "New Request",
+			"name": "GET - Dólar (cotizaciones)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "PUT",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -590,15 +585,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/gastos/3",
+					"raw": "http://localhost:8080/dolar",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"gastos",
-						"3"
+						"dolar"
 					]
 				}
 			},
@@ -632,7 +626,7 @@
 					},
 					"status": "OK",
 					"code": 200,
-					"_postman_previewlanguage": null,
+					"_postman_previewlanguage": "Text",
 					"header": [
 						{
 							"key": "X-Powered-By",
@@ -695,7 +689,7 @@
 					},
 					"status": "OK",
 					"code": 200,
-					"_postman_previewlanguage": null,
+					"_postman_previewlanguage": "Text",
 					"header": [
 						{
 							"key": "X-Powered-By",
@@ -730,6 +724,219 @@
 					"body": "{\n    \"id\": 3,\n    \"categoria\": \"Uber Moto\",\n    \"fecha\": \"2025/11/09\",\n    \"montoEnARS\": 7000,\n    \"monto\": 7000,\n    \"moneda\": \"ARS\",\n    \"tipoConversion\": null\n}"
 				}
 			]
+		},
+		{
+			"name": "GET - Dólar (convertir)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titulo\": \"Hogar y Comida\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dolar/convertir?monto=15000&moneda=USD&tipoConversion=tarjeta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dolar",
+						"convertir"
+					],
+					"query": [
+						{
+							"key": "monto",
+							"value": "15000"
+						},
+						{
+							"key": "moneda",
+							"value": "USD"
+						},
+						{
+							"key": "tipoConversion",
+							"value": "tarjeta"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Dólar (convertir - error)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dolar/convertir?moneda=USD&monto=15000&tipoConversion=inventado",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dolar",
+						"convertir"
+					],
+					"query": [
+						{
+							"key": "moneda",
+							"value": "USD"
+						},
+						{
+							"key": "monto",
+							"value": "15000"
+						},
+						{
+							"key": "tipoConversion",
+							"value": "inventado"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST - Crear Categoría (Joi OK)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titulo\": \"Servicios\",\r\n  \"imagen\": \"https://cdn-icons-png.flaticon.com/512/3917/3917188.png\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/categorias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT - Actualizar Categoría (Joi parcial OK)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"titulo\": \"Hogar\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/categorias/6927574a33a16309062f6691",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categorias",
+						"6927574a33a16309062f6691"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST - Crear Gasto (Joi OK - ARS)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Internet\",\r\n  \"categoria\": \"Home\",\r\n  \"monto\": 25000,\r\n  \"montoEnARS\": null,\r\n  \"moneda\": \"ARS\",\r\n  \"tipoConversion\": null,\r\n  \"fecha\": \"2025-11-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/gastos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gastos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Gasto (Joi parcial OK)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"monto\": 1800\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/gastos/6927599d0b5010d41943f62f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gastos",
+						"6927599d0b5010d41943f62f"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
