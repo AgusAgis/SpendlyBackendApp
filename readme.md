@@ -1,55 +1,143 @@
-# 💸 SpendlyBackend: API de Gestión Financiera
+# ⚙️ Spendly - Backend API
 
-Este proyecto es una **API RESTful** diseñada para la gestión completa de **Gastos** (CRUD). Está desarrollada en **Node.js** y **Express**, y sigue rigurosamente una arquitectura modular basada en **Cuatro Capas** (Controller, Service, Data, Routes) para garantizar escalabilidad y mantenimiento.
+**Spendly Backend** es una API RESTful robusta desarrollada en **Node.js** y **Express** que sirve como núcleo para la gestión de finanzas personales de la aplicación móvil Spendly.
 
-***
+Este servidor gestiona la lógica de negocio, la persistencia de datos (MongoDB/Memoria), la autenticación de usuarios y la integración con servicios externos de cotización de divisas.
 
-## 🛠️ Tecnologías Utilizadas
+## 🚀 Características Principales
 
-| Categoría | Tecnología | Uso en el Proyecto |
-| :--- | :--- | :--- |
-| **Backend (Motor)** | **Node.js** | Entorno de ejecución de JavaScript. |
-| **Framework Web** | **Express.js** | Creación del servidor, gestión de *middleware* y enrutamiento. |
-| **Arquitectura** | **Arquitectura por Capas** | Clara separación de responsabilidades para un código robusto. |
-| **Persistencia** | **Persistencia en Memoria** | Almacenamiento temporal de los datos de gastos dentro de la capa Data (DAO). |
-| **Lenguaje** | **JavaScript** (ES6 Classes, Async/Await) | Implementación de clases y manejo moderno de operaciones asíncronas. |
+* **Arquitectura Modular:** Diseño en capas (Rutas, Controladores, Servicios, DAO) para una clara separación de responsabilidades.
+* **Persistencia Flexible (DAO):** Implementación del patrón **Factory** que permite alternar entre persistencia en **MongoDB** (Producción) y **Memoria** (Desarrollo/Testing).
+* **Autenticación JWT:** Sistema seguro de Registro y Login utilizando *JSON Web Tokens* y encriptación de contraseñas con *bcryptjs*.
+* **Conversión de Moneda en Tiempo Real:** Integración con API externa (`DolarAPI`) para obtener cotizaciones (Oficial, Blue, Tarjeta) con sistema de **Caché** para optimizar el rendimiento.
+* **Gestión de Archivos:** Soporte para subir comprobantes (imágenes/PDF) utilizando **Multer**.
+* **Seed de Datos:** Carga automática de categorías por defecto al iniciar la aplicación.
 
-***
+## 🛠️ Stack Tecnológico
 
-## 📐 Arquitectura del Proyecto
+* **Runtime:** [Node.js](https://nodejs.org/)
+* **Framework:** [Express.js](https://expressjs.com/)
+* **Base de Datos:** [MongoDB](https://www.mongodb.com/) (con Mongoose ODM)
+* **Seguridad:** `bcryptjs` (Hashing), `jsonwebtoken` (JWT), `cors`.
+* **Manejo de Archivos:** `multer`.
+* **Peticiones HTTP:** `axios` (para consumo de APIs externas).
+* **Testing:** `mocha`, `chai`, `supertest`.
 
-El proyecto está estructurado en las siguientes capas, lo que permite una **clara separación de responsabilidades** (SoC):
+## 🔧 Instalación y Configuración
 
-1.  **`routes/`**: Define los *endpoints* HTTP y los dirige al Controller.
-2.  **`controllers/`**: Maneja la **petición (`req`) y respuesta (`res`)** HTTP y llama al Service.
-3.  **`services/`**: Contiene la **Lógica de Negocio** y las validaciones complejas. Llama a la capa Data.
-4.  **`data/`**: Simula la capa de **Persistencia (DAO)** y maneja el almacenamiento de los gastos en memoria.
-***
+### 1. Prerrequisitos
+* Tener instalado **Node.js** (v14 o superior).
+* Tener una instancia de **MongoDB** corriendo (local o Atlas).
 
-## 🔗 Endpoints de la API: Gestión de Gastos
+### 2. Instalación de Dependencias
+```bash
+# Clonar repositorio
+git clone <URL_DEL_REPOSITORIO>
 
-Se implementa la funcionalidad **CRUD** completa para la gestión de gastos en la ruta base `/gastos`.
+# Entrar en la carpeta
+cd SpendlyBackendApp
 
-| Método | Ruta Completa | Controller (Función) | Descripción | Formato de Entrada/Salida |
-| :--- | :--- | :--- | :--- | :--- |
-| **`GET`** | `/gastos` | `getGastos` | Obtiene todos los gastos registrados. | **Salida:** Lista de objetos `Gasto`. |
-| **`POST`** | `/gastos` | `createGasto` | **Crea** un nuevo registro de gasto. | **Entrada:** `{ descripcion, monto, fecha, categoria }`<br>**Salida:** `201 Created` |
-| **`GET`** | `/gastos/:id` | `getGasto` | Obtiene un gasto específico por su ID. | **Salida:** Objeto `Gasto`. |
-| **`PUT`** | `/gastos/:id` | `updateGastoController` | **Actualiza** completamente un gasto existente. | **Entrada:** `{ descripcion, monto, fecha, categoria }`<br>**Salida:** `200 OK` |
-| **`DELETE`** | `/gastos/:id` | `deleteGastoController` | **Elimina** un gasto por su ID. | **Salida:** `204 No Content` |
+# Instalar paquetes
+npm install
+````
 
-***
+### 3\. Configuración de Variables de Entorno (.env)
 
-## 🚀 Cómo Poner en Marcha el Servidor
+Crea un archivo `.env` en la raíz del proyecto para configurar el entorno. Si no lo creas, el sistema usará valores por defecto (Persistencia en Memoria).
 
-### 1. Clonar el Repositorio
+```env
+# Puerto del servidor
+PORT=8080
+
+# Modo de Persistencia: 'MONGODB' o 'MEM' (Memoria)
+MODO_PERSISTENCIA=MONGODB
+
+# Cadena de conexión a MongoDB (Local o Atlas)
+STRCNX=mongodb+srv://<usuario>:<password>@cluster.mongodb.net/test
+
+# Nombre de la base de datos
+BASE=spendly_db
+
+# Secreto para firmar los Tokens (¡Cámbialo!)
+JWT_SECRET=tu_secreto_super_seguro
+```
+
+### 4\. Ejecutar el Servidor
 
 ```bash
-git clone [https://github.com/AgusAgis/misGastitosBackend.git]
-cd GastitosBackend
-Instalación de Dependencias
-Asegúrate de tener Node.js instalado y utiliza npm:
-Bash npm install
-Iniciar el Servidor
-Bash node app.js
-El servidor estará disponible en http://localhost:[8080].
+# Modo producción/estándar
+npm start
+
+# O directamente con Node
+node app.js
+```
+
+El servidor iniciará en `http://localhost:8080`.
+
+## 📂 Estructura del Proyecto
+
+```text
+src/
+├── controllers/    # Manejo de Request/Response HTTP
+├── services/       # Lógica de Negocio y validaciones
+├── data/           # Capa de Acceso a Datos (DAOs y Factory)
+├── db/             # Conexión a Mongo y Schemas (Modelos)
+├── routes/         # Definición de endpoints
+├── middleware/     # Middlewares (ej: upload de archivos)
+├── uploads/        # Carpeta pública donde se guardan los comprobantes
+├── test/           # Tests unitarios y de integración
+└── config.js       # Carga de configuración centralizada
+```
+
+## 🔗 Documentación de API (Endpoints)
+
+### 🔐 Autenticación (`/auth`)
+
+  * `POST /auth/register`: Crear nuevo usuario.
+  * `POST /auth/login`: Iniciar sesión y obtener Token.
+
+### 💸 Gastos (`/gastos`)
+
+  * `GET /`: Obtener todos los gastos.
+  * `GET /:id`: Obtener detalle de un gasto.
+  * `POST /`: Crear nuevo gasto (Soporta `multipart/form-data` para archivos).
+  * `PUT /:id`: Actualizar gasto existente.
+  * `DELETE /:id`: Eliminar gasto.
+
+### 📂 Categorías (`/categorias`)
+
+  * `GET /`: Listar categorías.
+  * `POST /`: Crear nueva categoría.
+  * `PUT /:id`: Editar categoría.
+  * `DELETE /:id`: Eliminar categoría.
+
+### 💵 Dólar y Conversiones (`/dolar`)
+
+  * `GET /`: Obtener todas las cotizaciones actuales.
+  * `GET /convertir`: Calcular conversión (Params: `monto`, `moneda`, `tipoConversion`).
+
+## 🧪 Testing
+
+El proyecto incluye una suite de tests unitarios y de integración.
+
+```bash
+# Ejecutar tests unitarios (Servicios)
+npm run test-unit
+
+# Ejecutar tests de integración (Endpoints)
+npm run test-integration
+```
+
+## 👥 Autores
+
+  * **Loria Sofia** - *Desarrollo Backend*
+  * **Agis Agustin** - *Desarrollo Backend*
+  * **Tello Matias** - *Desarrollo Backend*
+  * **Imizcoz Lucas** - *Desarrollo Backend*
+
+-----
+
+*Proyecto desarrollado para la materia "Taller de Programacion 2" - 2025 2C.*
+
+```
+```
